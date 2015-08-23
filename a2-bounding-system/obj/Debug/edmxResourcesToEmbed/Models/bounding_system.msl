@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Bounding_SystemModelStoreContainer" CdmEntityContainer="Bounding_SystemEntities">
+    <EntitySetMapping Name="Bounds">
+      <EntityTypeMapping TypeName="IsTypeOf(Bounding_SystemModel.Bound)">
+        <MappingFragment StoreEntitySet="Bounds">
+          <ScalarProperty Name="bound_id" ColumnName="bound_id" />
+          <ScalarProperty Name="bound_name" ColumnName="bound_name" />
+          <ScalarProperty Name="bound_high_score" ColumnName="bound_high_score" />
+          <ScalarProperty Name="bound_difficulty" ColumnName="bound_difficulty" />
+          <ScalarProperty Name="bound_obstacles" ColumnName="bound_obstacles" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Profiles">
+      <EntityTypeMapping TypeName="IsTypeOf(Bounding_SystemModel.Profile)">
+        <MappingFragment StoreEntitySet="Profiles">
+          <ScalarProperty Name="player_id" ColumnName="player_id" />
+          <ScalarProperty Name="online_name" ColumnName="online_name" />
+          <ScalarProperty Name="first_name" ColumnName="first_name" />
+          <ScalarProperty Name="last_name" ColumnName="last_name" />
+          <ScalarProperty Name="server" ColumnName="server" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="age" ColumnName="age" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Replays">
+      <EntityTypeMapping TypeName="IsTypeOf(Bounding_SystemModel.Replay)">
+        <MappingFragment StoreEntitySet="Replays">
+          <ScalarProperty Name="replay_id" ColumnName="replay_id" />
+          <ScalarProperty Name="bound_id" ColumnName="bound_id" />
+          <ScalarProperty Name="replay_name" ColumnName="replay_name" />
+          <ScalarProperty Name="replay_difficulty" ColumnName="replay_difficulty" />
+          <ScalarProperty Name="replay_time" ColumnName="replay_time" />
+          <ScalarProperty Name="replay_date_complete" ColumnName="replay_date_complete" />
+          <ScalarProperty Name="submitter" ColumnName="submitter" />
+          <ScalarProperty Name="replay_player_name1" ColumnName="replay_player_name1" />
+          <ScalarProperty Name="replay_player_name2" ColumnName="replay_player_name2" />
+          <ScalarProperty Name="replay_player_name3" ColumnName="replay_player_name3" />
+          <ScalarProperty Name="replay_player_name4" ColumnName="replay_player_name4" />
+          <ScalarProperty Name="replay_player_name5" ColumnName="replay_player_name5" />
+          <ScalarProperty Name="replay_player_name6" ColumnName="replay_player_name6" />
+          <ScalarProperty Name="replay_player_name7" ColumnName="replay_player_name7" />
+          <ScalarProperty Name="replay_player_name8" ColumnName="replay_player_name8" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="IsTypeOf(Bounding_SystemModel.sysdiagram)">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Top_Five_Scores">
+      <EntityTypeMapping TypeName="IsTypeOf(Bounding_SystemModel.Top_Five_Scores)">
+        <MappingFragment StoreEntitySet="Top_Five_Scores">
+          <ScalarProperty Name="bound_high_scores" ColumnName="bound_high_scores" />
+          <ScalarProperty Name="replay_id" ColumnName="replay_id" />
+          <ScalarProperty Name="high_score1" ColumnName="high_score1" />
+          <ScalarProperty Name="high_score2" ColumnName="high_score2" />
+          <ScalarProperty Name="high_score3" ColumnName="high_score3" />
+          <ScalarProperty Name="high_score4" ColumnName="high_score4" />
+          <ScalarProperty Name="high_score5" ColumnName="high_score5" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Total_Points">
+      <EntityTypeMapping TypeName="IsTypeOf(Bounding_SystemModel.User_Total_Points)">
+        <MappingFragment StoreEntitySet="User_Total_Points">
+          <ScalarProperty Name="points_id" ColumnName="points_id" />
+          <ScalarProperty Name="bound_high_score_id" ColumnName="bound_high_score_id" />
+          <ScalarProperty Name="total_points" ColumnName="total_points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

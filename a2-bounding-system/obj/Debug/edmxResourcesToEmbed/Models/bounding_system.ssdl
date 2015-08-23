@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Bounding_SystemModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="Bounding_SystemModelStoreContainer">
+    <EntitySet Name="Bounds" EntityType="Bounding_SystemModel.Store.Bounds" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Profiles" EntityType="Bounding_SystemModel.Store.Profiles" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Replays" EntityType="Bounding_SystemModel.Store.Replays" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="Bounding_SystemModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Top_Five_Scores" EntityType="Bounding_SystemModel.Store.Top_Five_Scores" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User_Total_Points" EntityType="Bounding_SystemModel.Store.User_Total_Points" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Replays_Bound" Association="Bounding_SystemModel.Store.FK_Replays_Bound">
+      <End Role="Bound" EntitySet="Bounds" />
+      <End Role="Replays" EntitySet="Replays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Top_Five_Scores_Replays" Association="Bounding_SystemModel.Store.FK_Top_Five_Scores_Replays">
+      <End Role="Replays" EntitySet="Replays" />
+      <End Role="Top_Five_Scores" EntitySet="Top_Five_Scores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Total_Points_Top_Five_Scores" Association="Bounding_SystemModel.Store.FK_User_Total_Points_Top_Five_Scores">
+      <End Role="Top_Five_Scores" EntitySet="Top_Five_Scores" />
+      <End Role="User_Total_Points" EntitySet="User_Total_Points" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Bounds">
+    <Key>
+      <PropertyRef Name="bound_id" />
+    </Key>
+    <Property Name="bound_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="bound_name" Type="varchar" Nullable="true" MaxLength="40" />
+    <Property Name="bound_high_score" Type="int" Nullable="true" />
+    <Property Name="bound_difficulty" Type="int" Nullable="true" />
+    <Property Name="bound_obstacles" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Profiles">
+    <Key>
+      <PropertyRef Name="player_id" />
+      <PropertyRef Name="online_name" />
+    </Key>
+    <Property Name="player_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="online_name" Type="varchar" Nullable="false" MaxLength="30" />
+    <Property Name="first_name" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="last_name" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="server" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="gender" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="age" Type="int" Nullable="true" />
+    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Replays">
+    <Key>
+      <PropertyRef Name="replay_id" />
+    </Key>
+    <Property Name="replay_id" Type="int" Nullable="false" />
+    <Property Name="bound_id" Type="int" Nullable="false" />
+    <Property Name="replay_name" Type="varbinary" Nullable="false" MaxLength="35" />
+    <Property Name="replay_difficulty" Type="int" Nullable="true" />
+    <Property Name="replay_time" Type="decimal" Nullable="false" Precision="18" Scale="0" />
+    <Property Name="replay_date_complete" Type="datetime" Nullable="false" />
+    <Property Name="submitter" Type="varchar" Nullable="false" MaxLength="35" />
+    <Property Name="replay_player_name1" Type="varchar" Nullable="false" MaxLength="35" />
+    <Property Name="replay_player_name2" Type="varchar" Nullable="true" MaxLength="35" />
+    <Property Name="replay_player_name3" Type="varchar" Nullable="true" MaxLength="35" />
+    <Property Name="replay_player_name4" Type="varchar" Nullable="true" MaxLength="35" />
+    <Property Name="replay_player_name5" Type="varchar" Nullable="true" MaxLength="35" />
+    <Property Name="replay_player_name6" Type="varchar" Nullable="true" MaxLength="35" />
+    <Property Name="replay_player_name7" Type="varchar" Nullable="true" MaxLength="35" />
+    <Property Name="replay_player_name8" Type="varchar" Nullable="true" MaxLength="35" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" Nullable="true" />
+    <Property Name="definition" Type="varbinary(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Top_Five_Scores">
+    <Key>
+      <PropertyRef Name="bound_high_scores" />
+    </Key>
+    <Property Name="bound_high_scores" Type="int" Nullable="false" />
+    <Property Name="replay_id" Type="int" Nullable="true" />
+    <Property Name="high_score1" Type="decimal" Nullable="true" Precision="18" Scale="0" />
+    <Property Name="high_score2" Type="decimal" Nullable="true" Precision="18" Scale="0" />
+    <Property Name="high_score3" Type="decimal" Nullable="true" Precision="18" Scale="0" />
+    <Property Name="high_score4" Type="decimal" Nullable="true" Precision="18" Scale="0" />
+    <Property Name="high_score5" Type="decimal" Nullable="true" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="User_Total_Points">
+    <Key>
+      <PropertyRef Name="points_id" />
+    </Key>
+    <Property Name="points_id" Type="int" Nullable="false" />
+    <Property Name="bound_high_score_id" Type="int" Nullable="true" />
+    <Property Name="total_points" Type="decimal" Nullable="true" Precision="18" Scale="0" />
+  </EntityType>
+  <Association Name="FK_Replays_Bound">
+    <End Role="Bound" Type="Bounding_SystemModel.Store.Bounds" Multiplicity="1" />
+    <End Role="Replays" Type="Bounding_SystemModel.Store.Replays" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bound">
+        <PropertyRef Name="bound_id" />
+      </Principal>
+      <Dependent Role="Replays">
+        <PropertyRef Name="bound_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Top_Five_Scores_Replays">
+    <End Role="Replays" Type="Bounding_SystemModel.Store.Replays" Multiplicity="0..1" />
+    <End Role="Top_Five_Scores" Type="Bounding_SystemModel.Store.Top_Five_Scores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Replays">
+        <PropertyRef Name="replay_id" />
+      </Principal>
+      <Dependent Role="Top_Five_Scores">
+        <PropertyRef Name="replay_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Total_Points_Top_Five_Scores">
+    <End Role="Top_Five_Scores" Type="Bounding_SystemModel.Store.Top_Five_Scores" Multiplicity="0..1" />
+    <End Role="User_Total_Points" Type="Bounding_SystemModel.Store.User_Total_Points" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Top_Five_Scores">
+        <PropertyRef Name="bound_high_scores" />
+      </Principal>
+      <Dependent Role="User_Total_Points">
+        <PropertyRef Name="bound_high_score_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Bounding_SystemModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Bound">
+    <Key>
+      <PropertyRef Name="bound_id" />
+    </Key>
+    <Property Name="bound_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="bound_name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="bound_high_score" Type="Int32" />
+    <Property Name="bound_difficulty" Type="Int32" />
+    <NavigationProperty Name="Replays" Relationship="Self.FK_Replays_Bound" FromRole="Bound" ToRole="Replays" />
+    <Property Name="bound_obstacles" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="player_id" />
+      <PropertyRef Name="online_name" />
+    </Key>
+    <Property Name="player_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="online_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="first_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="last_name" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="server" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="gender" Type="String" Nullable="false" />
+    <Property Name="age" Type="Int32" />
+    <Property Name="password" Type="String" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Replay">
+    <Key>
+      <PropertyRef Name="replay_id" />
+    </Key>
+    <Property Name="replay_id" Type="Int32" Nullable="false" />
+    <Property Name="bound_id" Type="Int32" Nullable="false" />
+    <Property Name="replay_name" Type="Binary" MaxLength="35" FixedLength="false" Nullable="false" />
+    <Property Name="replay_difficulty" Type="Int32" />
+    <Property Name="replay_obstacles" Type="String" Nullable="false" />
+    <Property Name="replay_time" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="replay_date_complete" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="submitter" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="replay_player_name1" Type="String" MaxLength="35" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="replay_player_name2" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="replay_player_name3" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="replay_player_name4" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="replay_player_name5" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="replay_player_name6" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="replay_player_name7" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="replay_player_name8" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Bound" Relationship="Self.FK_Replays_Bound" FromRole="Replays" ToRole="Bound" />
+    <NavigationProperty Name="Top_Five_Scores" Relationship="Self.FK_Top_Five_Scores_Replays" FromRole="Replays" ToRole="Top_Five_Scores" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Top_Five_Scores">
+    <Key>
+      <PropertyRef Name="bound_high_scores" />
+    </Key>
+    <Property Name="bound_high_scores" Type="Int32" Nullable="false" />
+    <Property Name="replay_id" Type="Int32" />
+    <Property Name="high_score1" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="high_score2" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="high_score3" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="high_score4" Type="Decimal" Precision="18" Scale="0" />
+    <Property Name="high_score5" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Replay" Relationship="Self.FK_Top_Five_Scores_Replays" FromRole="Top_Five_Scores" ToRole="Replays" />
+    <NavigationProperty Name="User_Total_Points" Relationship="Self.FK_User_Total_Points_Top_Five_Scores" FromRole="Top_Five_Scores" ToRole="User_Total_Points" />
+  </EntityType>
+  <EntityType Name="User_Total_Points">
+    <Key>
+      <PropertyRef Name="points_id" />
+    </Key>
+    <Property Name="points_id" Type="Int32" Nullable="false" />
+    <Property Name="bound_high_score_id" Type="Int32" />
+    <Property Name="total_points" Type="Decimal" Precision="18" Scale="0" />
+    <NavigationProperty Name="Top_Five_Scores" Relationship="Self.FK_User_Total_Points_Top_Five_Scores" FromRole="User_Total_Points" ToRole="Top_Five_Scores" />
+  </EntityType>
+  <Association Name="FK_Replays_Bound">
+    <End Role="Bound" Type="Self.Bound" Multiplicity="1" />
+    <End Role="Replays" Type="Self.Replay" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bound">
+        <PropertyRef Name="bound_id" />
+      </Principal>
+      <Dependent Role="Replays">
+        <PropertyRef Name="bound_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Top_Five_Scores_Replays">
+    <End Role="Replays" Type="Self.Replay" Multiplicity="0..1" />
+    <End Role="Top_Five_Scores" Type="Self.Top_Five_Scores" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Replays">
+        <PropertyRef Name="replay_id" />
+      </Principal>
+      <Dependent Role="Top_Five_Scores">
+        <PropertyRef Name="replay_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_Total_Points_Top_Five_Scores">
+    <End Role="Top_Five_Scores" Type="Self.Top_Five_Scores" Multiplicity="0..1" />
+    <End Role="User_Total_Points" Type="Self.User_Total_Points" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Top_Five_Scores">
+        <PropertyRef Name="bound_high_scores" />
+      </Principal>
+      <Dependent Role="User_Total_Points">
+        <PropertyRef Name="bound_high_score_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Bounding_SystemEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bounds" EntityType="Self.Bound" />
+    <EntitySet Name="Profiles" EntityType="Self.Profile" />
+    <EntitySet Name="Replays" EntityType="Self.Replay" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Top_Five_Scores" EntityType="Self.Top_Five_Scores" />
+    <EntitySet Name="User_Total_Points" EntityType="Self.User_Total_Points" />
+    <AssociationSet Name="FK_Replays_Bound" Association="Self.FK_Replays_Bound">
+      <End Role="Bound" EntitySet="Bounds" />
+      <End Role="Replays" EntitySet="Replays" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Top_Five_Scores_Replays" Association="Self.FK_Top_Five_Scores_Replays">
+      <End Role="Replays" EntitySet="Replays" />
+      <End Role="Top_Five_Scores" EntitySet="Top_Five_Scores" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_Total_Points_Top_Five_Scores" Association="Self.FK_User_Total_Points_Top_Five_Scores">
+      <End Role="Top_Five_Scores" EntitySet="Top_Five_Scores" />
+      <End Role="User_Total_Points" EntitySet="User_Total_Points" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
